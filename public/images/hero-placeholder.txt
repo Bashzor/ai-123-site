@@ -1,1 +1,1 @@
-<img src="/images/hero.png" alt="AI consulting illustration" class="hero-image" />
+
