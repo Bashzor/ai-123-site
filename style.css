@@ -70,20 +70,14 @@ body{
 .main-nav a:hover{color:var(--text)}
 
 /* Hero */
-.hero{
-  padding:3.5rem 0;
-  background:linear-gradient(180deg,#f8fafc 0%, #ffffff 100%);
-}
-.hero-inner{
-  text-align:left;
-}
-.hero h1{
-  margin:0 0 0.5rem 0;
-  font-size:clamp(1.6rem, 3.5vw, 2.4rem);
-}
-.lead{
-  margin:0 0 1rem 0;
-  color:var(--muted);
+.hero {
+  background-image: url("public/images/background-image.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
 }
 
 /* Buttons */
