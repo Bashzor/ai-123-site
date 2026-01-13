@@ -1,85 +1,97 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Making AI as easy as 123</title>
-  <meta name="description" content="Simple AI demos for learning and prototyping">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI for Small Business — Bashzor</title>
+  <meta name="description" content="Affordable, practical AI tools and support to help small businesses save time, improve marketing, and grow revenue." />
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="container">
-      <a class="brand" href="/">AI-123</a>
-      <nav class="main-nav">
-        <a href="#features">Features</a>
-        <a href="#about">About</a>
+      <h1 class="brand">Bashzor AI</h1>
+      <nav class="nav">
+        <a href="#features">Solutions</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container">
-      <h1>Making AI as easy as 123</h1>
-      <p class="lead">Experiment with small AI-powered examples, documentation, and tutorials — built to be clear, fast, and easy to extend.</p>
-      <p>
-        <a class="btn btn-primary" href="#features">Explore features</a>
-        <a class="btn btn-link" href="#contact">Get in touch</a>
-      </p>
-    </div>
-  </section>
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h2>AI that helps your small business do more with less</h2>
+          <p class="lead">Save time, improve marketing, and serve customers better without a big budget or a team of engineers. We build practical AI tools—automations, content helpers, and simple integrations—tailored for small-business owners.</p>
 
-  <!-- LATEST AI NEWS -->
-  <section id="news" class="py-6 bg-light">
-    <div class="container">
-      <h2>Latest AI news</h2>
-      <p class="text-muted">Up-to-date headlines about AI investment, product launches, and infrastructure spending. These items are fetched live — you can update the source query in <code>assets/js/news.js</code> if you prefer different topics.</p>
+          <ul class="benefits">
+            <li>Automate repetitive tasks (invoices, replies, scheduling)</li>
+            <li>Create on-brand marketing copy and social posts fast</li>
+            <li>Get affordable integrations with the tools you already use</li>
+          </ul>
 
-      <ul id="news-list" class="list-unstyled">
-        <li>Loading latest AI news...</li>
-      </ul>
-
-      <p class="small text-muted">Tip: replace the client-side API fetch with a server-side proxy for a private API key.</p>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features" class="py-6">
-    <div class="container">
-      <h2>Features</h2>
-      <div class="features-grid">
-        <div class="feature"> 
-          <h3>Interactive demos</h3>
-          <p>Small, self-contained demos that you can run and modify locally.</p>
+          <a class="btn-primary" href="#contact">Get a free consult</a>
         </div>
-        <div class="feature">
-          <h3>Lightweight</h3>
-          <p>Minimal dependencies and fast load times — ideal for prototypes and docs.</p>
-        </div>
-        <div class="feature">
-          <h3>Easy to extend</h3>
-          <p>Well-structured HTML/CSS/JS so you can add features quickly.</p>
+
+        <div class="hero-image" aria-hidden="true">
+          <!-- Replace with an actual image at public/images/hero.png -->
+          <div class="hero-placeholder">Your hero image here</div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="py-6 bg-light">
-    <div class="container">
-      <h2>About AI-123</h2>
-      <p>This repository is a starting point for building small sites that showcase AI examples, experiments, or tutorials. Replace text and assets with your project content.</p>
-    </div>
-  </section>
+    <section id="features" class="container features">
+      <h3>Designed for small teams</h3>
+      <div class="grid">
+        <article class="card">
+          <h4>Quick wins</h4>
+          <p>Launch simple automations in days—not months—that reduce manual work and recurring costs.</p>
+        </article>
+        <article class="card">
+          <h4>Affordable pricing</h4>
+          <p>Plans and one-off projects sized for local shops, boutiques, agencies, and independent professionals.</p>
+        </article>
+        <article class="card">
+          <h4>Human-first</h4>
+          <p>We combine AI with practical workflows and templates so your team stays in control.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="container contact">
+      <h3>Contact us</h3>
+      <p>Tell us about your business and goals — we'll recommend a small, practical first step you can start right away.</p>
+
+      <form id="contact-form" class="contact-form" novalidate>
+        <label for="name">Full name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="business">Business name</label>
+        <input type="text" id="business" name="business">
+
+        <label for="message">How can we help?</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" id="submit-btn">Request consult</button>
+          <div id="form-status" role="status" aria-live="polite" class="form-status"></div>
+        </div>
+      </form>
+
+      <p class="note">Prefer email? Reach us at hello@bashzor.ai</p>
+    </section>
+  </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; AI-123</p>
+      <small>© "Bashzor" — Practical AI for small business</small>
     </div>
   </footer>
 
-  <script src="/assets/js/news.js"></script>
+  <script src="/assets/js/contact.js" defer></script>
 </body>
 </html>

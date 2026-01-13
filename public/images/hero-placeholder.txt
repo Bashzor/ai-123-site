@@ -1,0 +1,6 @@
+This is a placeholder for the site's hero image.
+
+Recommended: Replace this file with an actual image at public/images/hero.png or hero.jpg.
+Suggested dimensions: 1200x700 (or a responsive SVG) and optimized for web.
+
+If you don't have an image yet, you can use a simple illustration or photo that represents your small business (team, storefront, product, or service).
