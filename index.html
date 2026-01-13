@@ -1,89 +1,85 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI-123 — Demo Site</title>
-  <meta name="description" content="AI-123 demo site — simple starter to showcase features and collect contact messages." />
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Making AI as easy as 123</title>
+  <meta name="description" content="Simple AI demos for learning and prototyping">
+  <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
   <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#">AI-123</a>
-      <nav class="main-nav" aria-label="Main navigation">
-        <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+    <div class="container">
+      <a class="brand" href="/">AI-123</a>
+      <nav class="main-nav">
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-inner">
-        <h1>Simple AI demos for learning and prototyping</h1>
-        <p class="lead">Experiment with small AI-powered examples, documentation, and tutorials — built to be clear, fast, and easy to extend.</p>
-        <p>
-          <a class="btn primary" href="#features">Explore features</a>
-          <a class="btn" href="#contact">Get in touch</a>
-        </p>
-      </div>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <h1>Making AI as easy as 123</h1>
+      <p class="lead">Experiment with small AI-powered examples, documentation, and tutorials — built to be clear, fast, and easy to extend.</p>
+      <p>
+        <a class="btn btn-primary" href="#features">Explore features</a>
+        <a class="btn btn-link" href="#contact">Get in touch</a>
+      </p>
+    </div>
+  </section>
 
-    <section id="features" class="container features">
+  <!-- LATEST AI NEWS -->
+  <section id="news" class="py-6 bg-light">
+    <div class="container">
+      <h2>Latest AI news</h2>
+      <p class="text-muted">Up-to-date headlines about AI investment, product launches, and infrastructure spending. These items are fetched live — you can update the source query in <code>assets/js/news.js</code> if you prefer different topics.</p>
+
+      <ul id="news-list" class="list-unstyled">
+        <li>Loading latest AI news...</li>
+      </ul>
+
+      <p class="small text-muted">Tip: replace the client-side API fetch with a server-side proxy for a private API key.</p>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="py-6">
+    <div class="container">
       <h2>Features</h2>
-      <div class="cards">
-        <article class="card">
+      <div class="features-grid">
+        <div class="feature"> 
           <h3>Interactive demos</h3>
           <p>Small, self-contained demos that you can run and modify locally.</p>
-        </article>
-        <article class="card">
+        </div>
+        <div class="feature">
           <h3>Lightweight</h3>
           <p>Minimal dependencies and fast load times — ideal for prototypes and docs.</p>
-        </article>
-        <article class="card">
+        </div>
+        <div class="feature">
           <h3>Easy to extend</h3>
           <p>Well-structured HTML/CSS/JS so you can add features quickly.</p>
-        </article>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="about" class="container about">
+  <!-- ABOUT -->
+  <section id="about" class="py-6 bg-light">
+    <div class="container">
       <h2>About AI-123</h2>
       <p>This repository is a starting point for building small sites that showcase AI examples, experiments, or tutorials. Replace text and assets with your project content.</p>
-    </section>
-
-    <section id="contact" class="container contact">
-      <h2>Contact</h2>
-      <form id="contact-form" class="form" aria-label="Contact form" novalidate>
-        <div class="form-row">
-          <label for="name">Name</label>
-          <input id="name" name="name" type="text" placeholder="Your name" required />
-        </div>
-        <div class="form-row">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" required />
-        </div>
-        <div class="form-row">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" placeholder="Tell us what you'd like to build" required></textarea>
-        </div>
-        <div class="form-actions">
-          <button type="submit" class="btn primary">Send message</button>
-          <span id="form-status" role="status" aria-live="polite"></span>
-        </div>
-      </form>
-    </section>
-  </main>
+    </div>
+  </section>
 
   <footer class="site-footer">
     <div class="container">
-      <p>© <span id="year"></span> AI-123. Built with ♥ for learning.</p>
+      <p>&copy; AI-123</p>
     </div>
   </footer>
+
+  <script src="/assets/js/news.js"></script>
 </body>
 </html>
