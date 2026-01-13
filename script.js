@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const name = (formData.get('name') || '').toString().trim();
       const email = (formData.get('email') || '').toString().trim();
       const message = (formData.get('message') || '').toString().trim();
+      const business = (formData.get('business') || '').toString().trim();
+
 
       if (!name || !email || !message) {
         status.textContent = 'Please fill in all fields.';
@@ -47,16 +49,24 @@ document.addEventListener('DOMContentLoaded', () => {
         // });
 
         // Simulate network latency for demo purposes
-        await new Promise((r) => setTimeout(r, 700));
+       const res = await fetch('/api/contact', {
+          method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, business, message })
+        });
 
-        status.textContent = 'Thanks! Your message has been received.';
-        status.style.color = 'green';
-        form.reset();
+      const out = await res.json().catch(() => ({}));
+      if (!res.ok || !out.ok) throw new Error(out.error || 'Send failed');
+
+      status.textContent = 'Thanks! We received your request and will reply within 1 business day.';
+      status.style.color = 'green';
+      form.reset();
       } catch (err) {
         console.error(err);
         status.textContent = 'There was an error sending your message. Try again later.';
         status.style.color = 'crimson';
       }
     });
+    <script src="/assets/js/main.js" defer></script>
   }
 });
