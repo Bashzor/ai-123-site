@@ -67,6 +67,5 @@ document.addEventListener('DOMContentLoaded', () => {
         status.style.color = 'crimson';
       }
     });
-    <script src="/assets/js/main.js" defer></script>
   }
 });
