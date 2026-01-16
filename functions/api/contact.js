@@ -8,14 +8,14 @@ export async function onRequestPost(context) {
     }
 
     // Send email via MailChannels (Cloudflare-supported)
-    const payload = {
-      personalizations: [{ to: [{ email: "admin@ai-123.net" }] }],
-      from: { email: env.FROM_EMAIL || "no-reply@ai-123.net", name: "AI-123 Website" },
-      reply_to: { email, name },
-      subject: `AI-123 Consult Request — ${business || "New lead"}`,
-      content: [{
-        type: "text/plain",
-        value:
+  const payload = {
+  personalizations: [{ to: [{ email: "admin@ai-123.net" }] }],
+  from: { email: "admin@ai-123.net", name: "AI-123 Website" },
+  reply_to: { email, name },
+  subject: `AI-123 Consult Request — ${business || "New lead"}`,
+  content: [{
+    type: "text/plain",
+    value:
 `Name: ${name}
 Email: ${email}
 Business: ${business || ""}
@@ -23,8 +23,9 @@ Business: ${business || ""}
 Message:
 ${message}
 `
-      }]
-    };
+  }]
+};
+
 
     const resp = await fetch("https://api.mailchannels.net/tx/v1/send", {
       method: "POST",
