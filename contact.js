@@ -41,11 +41,14 @@ document.addEventListener('DOMContentLoaded', function(){
     setStatus('Sending your request…');
 
      try {
-      const res = await fetch('https://ai-123-site.steep-art-b98a.workers.dev/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
+     const res = await fetch('https://ai-123-site.steep-art-b98a.workers.dev/api/contact', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+});
+
 
       const out = await res.json().catch(() => ({}));
 
