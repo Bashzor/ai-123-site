@@ -1,80 +1,52 @@
-export async function onRequest(context) {
-  const { request } = context;
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
 
-  // CORS preflight support
-  if (request.method === "OPTIONS") {
-    return new Response(null, {
-      status: 204,
-      headers: corsHeaders()
-    });
+  if (!form) {
+    console.error("Contact form not found");
+    return;
   }
 
-  if (request.method !== "POST") {
-    return Response.json({ ok: false, error: "Method not allowed" }, { status: 405, headers: corsHeaders() });
-  }
+  console.log("Contact form loaded");
 
-  try {
-    const data = await request.json().catch(() => ({}));
-    const name = (data.name || "").toString().trim();
-    const email = (data.email || "").toString().trim();
-    const business = (data.business || "").toString().trim();
-    const message = (data.message || "").toString().trim();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    console.log("Form submit triggered");
 
-    if (!name || !email || !message) {
-      return Response.json(
-        { ok: false, error: "Missing required fields: name, email, message." },
-        { status: 400, headers: corsHeaders() }
-      );
-    }
+    status.textContent = "Sending…";
+    status.style.color = "inherit";
 
+    const fd = new FormData(form);
     const payload = {
-      personalizations: [{ to: [{ email: "admin@ai-123.net" }] }],
-      from: { email: "admin@ai-123.net", name: "AI-123 Website" },
-      reply_to: { email, name },
-      subject: `AI-123 Consult Request — ${business || "New lead"}`,
-      content: [
-        {
-          type: "text/plain",
-          value:
-`Name: ${name}
-Email: ${email}
-Business: ${business || ""}
-
-Message:
-${message}
-`
-        }
-      ]
+      name: fd.get("name"),
+      email: fd.get("email"),
+      business: fd.get("business"),
+      message: fd.get("message")
     };
 
-    const resp = await fetch("https://api.mailchannels.net/tx/v1/send", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-    const detail = await resp.text().catch(() => "");
-    if (!resp.ok) {
-      return Response.json(
-        { ok: false, error: "Email send failed", detail },
-        { status: 502, headers: corsHeaders() }
-      );
+      const out = await res.json().catch(() => ({}));
+      console.log("API response:", res.status, out);
+
+      if (!res.ok || !out.ok) {
+        throw new Error(out.error || "Send failed");
+      }
+
+      status.textContent = "Thanks! We received your request.";
+      status.style.color = "green";
+      form.reset();
+    } catch (err) {
+      console.error("Submit error:", err);
+      status.textContent = "There was an error sending your message.";
+      status.style.color = "crimson";
     }
+  });
+});
 
-    return Response.json({ ok: true }, { status: 200, headers: corsHeaders() });
-  } catch (err) {
-    return Response.json(
-      { ok: false, error: err?.message || "Server error" },
-      { status: 500, headers: corsHeaders() }
-    );
-  }
-}
-
-function corsHeaders() {
-  return {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
-  };
-}
 
