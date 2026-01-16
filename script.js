@@ -40,20 +40,41 @@ document.addEventListener('DOMContentLoaded', () => {
       status.style.color = '';
 
       try {
-        // Placeholder: replace with a real endpoint if/when available
-        // Example:
-        // await fetch('/api/contact', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({ name, email, message })
-        // });
+        <script>
+  (function () {
+    const form = document.getElementById("consultForm");
+    if (!form) return;
 
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const fd = new FormData(form);
+      const name = (fd.get("name") || "").toString().trim();
+      const email = (fd.get("email") || "").toString().trim();
+      const business = (fd.get("business") || "").toString().trim();
+      const message = (fd.get("message") || "").toString().trim();
+
+      const subject = `AI-123 Consult Request — ${business || "New lead"}`;
+      const body =
+`Name: ${name}
+Email: ${email}
+Business: ${business}
+
+How we can help:
+${message}
+`;
+
+      const mailto = `mailto:admin@ai-123.net?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    });
+  })();
+</script>
         // Simulate network latency for demo purposes
        const res = await fetch('/api/contact', {
           method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, business, message })
-        });
+        })
 
       const out = await res.json().catch(() => ({}));
       if (!res.ok || !out.ok) throw new Error(out.error || 'Send failed');
