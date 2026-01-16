@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', function(){
     submitBtn.textContent = 'Sending...';
     setStatus('Sending your request…');
 
-    try {
-      const res = await fetch('https://ai-123-site.steep-art-b98a.workers.dev', {
+     try {
+      const res = await fetch('https://ai-123-site.steep-art-b98a.workers.dev/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function(){
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
     }
+  
   });
 });
 
