@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function(){
     return null;
   }
 
-  form.addEventListener('submit', function(e){
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
     setStatus('');
 
@@ -40,17 +40,28 @@ document.addEventListener('DOMContentLoaded', function(){
     submitBtn.textContent = 'Sending...';
     setStatus('Sending your request…');
 
-    // NOTE: Replace this simulated request with a real endpoint or form handler.
-    // For now we simulate network latency and show success to the user.
-    setTimeout(function(){
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const out = await res.json().catch(() => ({}));
+
+      if (!res.ok || !out.ok) {
+        throw new Error(out.error || out.detail || 'Send failed');
+      }
+
       setStatus('Thanks! We received your request and will reply within 1 business day.', 'success');
       form.reset();
-
-      // Optionally, you can forward to a real API endpoint here using fetch()
-      // fetch('/api/contact', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) })
-      //  .then(r=>r.json()).then(...)
-    }, 1100);
+    } catch (err2) {
+      console.error(err2);
+      setStatus('There was an error sending your message. Try again later.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   });
 });
+
