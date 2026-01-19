@@ -1,9 +1,6 @@
 // Handle CORS preflight
 export async function onRequestOptions() {
-  return new Response(null, {
-    status: 204,
-    headers: cors()
-  });
+  return new Response(null, { status: 204, headers: cors() });
 }
 
 // Handle POST /api/contact
@@ -13,10 +10,14 @@ export async function onRequestPost({ request }) {
 
     const name = (data.name || "").toString().trim();
     const email = (data.email || "").toString().trim();
-    const business = (data.business || "").toString().trim();
+
+    // IMPORTANT: accept either "business" or "company" to avoid silent mismatch
+    const business =
+      (data.business || data.company || "").toString().trim();
+
     const message = (data.message || "").toString().trim();
 
-    // NEW fields
+    // Optional fields
     const employeesRaw = data.employees;
     const employees =
       employeesRaw === null || employeesRaw === undefined || employeesRaw === ""
@@ -27,17 +28,25 @@ export async function onRequestPost({ request }) {
     const trainingTools = trainingToolsRaw
       .map((x) => (x || "").toString().trim())
       .filter(Boolean)
-      .slice(0, 25); // safety cap
+      .slice(0, 25);
 
-    // Required fields
+    // Required
     if (!name || !email || !message) {
       return Response.json(
-        { ok: false, error: "Missing required fields" },
+        {
+          ok: false,
+          error: "Missing required fields",
+          missing: {
+            name: !name,
+            email: !email,
+            message: !message
+          }
+        },
         { status: 400, headers: cors() }
       );
     }
 
-    // Validate employees (optional)
+    // Validate employees if present
     if (employees !== "" && (!Number.isFinite(employees) || employees < 1 || employees > 1000000)) {
       return Response.json(
         { ok: false, error: "Employees must be a valid number" },
@@ -50,10 +59,9 @@ export async function onRequestPost({ request }) {
       from: { email: "no-reply@ai-123.net", name: "AI-123 Website" },
       reply_to: { email, name },
       subject: `AI-123 Consult Request — ${business || "New lead"}`,
-      content: [
-        {
-          type: "text/plain",
-          value:
+      content: [{
+        type: "text/plain",
+        value:
 `Name: ${name}
 Email: ${email}
 Business: ${business || "(not provided)"}
@@ -62,8 +70,7 @@ Training tools: ${trainingTools.length ? trainingTools.join(", ") : "(none selec
 
 Message:
 ${message}`
-        }
-      ]
+      }]
     };
 
     const resp = await fetch("https://api.mailchannels.net/tx/v1/send", {
@@ -73,6 +80,8 @@ ${message}`
     });
 
     const detail = await resp.text().catch(() => "");
+
+    // If MailChannels fails, pass the detail back to the browser so you can see why
     if (!resp.ok) {
       return Response.json(
         { ok: false, error: "Email send failed", detail },
@@ -81,6 +90,7 @@ ${message}`
     }
 
     return Response.json({ ok: true }, { status: 200, headers: cors() });
+
   } catch (err) {
     return Response.json(
       { ok: false, error: err?.message || "Server error" },
@@ -96,4 +106,3 @@ function cors() {
     "Access-Control-Allow-Headers": "Content-Type"
   };
 }
-
