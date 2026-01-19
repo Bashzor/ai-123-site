@@ -216,6 +216,48 @@ footer{
   color: var(--muted);
   font-size: 13px;
 }
+/* --- Contact form: checkbox alignment fix --- */
+
+/* If your normal .form-row uses grid/flex for label+input,
+   force fieldset rows to behave like a normal block */
+.contact-form fieldset.form-row {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 12px;
+}
+
+/* Legend spacing */
+.contact-form fieldset.form-row legend {
+  font-weight: 600;
+  padding: 0 .5rem;
+  margin: 0 0 .5rem 0;
+}
+
+/* Each checkbox line: make the box and text align nicely */
+.contact-form .checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin: .35rem 0;
+  line-height: 1.2;
+}
+
+/* Prevent weird inherited widths/margins on checkbox inputs */
+.contact-form .checkbox-row input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+/* If your global label style adds big margins, neutralize it here */
+.contact-form .checkbox-row {
+  font-weight: 500;
+}
+
 
 /* Responsive */
 @media (max-width: 920px){
