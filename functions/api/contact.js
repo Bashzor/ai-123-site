@@ -1,108 +1,49 @@
-// Handle CORS preflight
-export async function onRequestOptions() {
-  return new Response(null, { status: 204, headers: cors() });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contactForm");
+  const statusEl = document.getElementById("contactStatus");
 
-// Handle POST /api/contact
-export async function onRequestPost({ request }) {
-  try {
-    const data = await request.json().catch(() => ({}));
+  if (!form) {
+    console.error("contactForm not found");
+    return;
+  }
 
-    const name = (data.name || "").toString().trim();
-    const email = (data.email || "").toString().trim();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    // IMPORTANT: accept either "business" or "company" to avoid silent mismatch
-    const business =
-      (data.business || data.company || "").toString().trim();
+    statusEl.textContent = "Sending…";
 
-    const message = (data.message || "").toString().trim();
-
-    // Optional fields
-    const employeesRaw = data.employees;
-    const employees =
-      employeesRaw === null || employeesRaw === undefined || employeesRaw === ""
-        ? ""
-        : Number(employeesRaw);
-
-    const trainingToolsRaw = Array.isArray(data.trainingTools) ? data.trainingTools : [];
-    const trainingTools = trainingToolsRaw
-      .map((x) => (x || "").toString().trim())
-      .filter(Boolean)
-      .slice(0, 25);
-
-    // Required
-    if (!name || !email || !message) {
-      return Response.json(
-        {
-          ok: false,
-          error: "Missing required fields",
-          missing: {
-            name: !name,
-            email: !email,
-            message: !message
-          }
-        },
-        { status: 400, headers: cors() }
-      );
-    }
-
-    // Validate employees if present
-    if (employees !== "" && (!Number.isFinite(employees) || employees < 1 || employees > 1000000)) {
-      return Response.json(
-        { ok: false, error: "Employees must be a valid number" },
-        { status: 400, headers: cors() }
-      );
-    }
+    const trainingTools = Array.from(
+      document.querySelectorAll('input[name="trainingTools"]:checked')
+    ).map(el => el.value);
 
     const payload = {
-      personalizations: [{ to: [{ email: "admin@ai-123.net" }] }],
-      from: { email: "no-reply@ai-123.net", name: "AI-123 Website" },
-      reply_to: { email, name },
-      subject: `AI-123 Consult Request — ${business || "New lead"}`,
-      content: [{
-        type: "text/plain",
-        value:
-`Name: ${name}
-Email: ${email}
-Business: ${business || "(not provided)"}
-Employees: ${employees === "" ? "(not provided)" : employees}
-Training tools: ${trainingTools.length ? trainingTools.join(", ") : "(none selected)"}
-
-Message:
-${message}`
-      }]
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      company: document.getElementById("company").value.trim(),
+      employees: document.getElementById("employees").value || "",
+      message: document.getElementById("message").value.trim(),
+      trainingTools
     };
 
-    const resp = await fetch("https://api.mailchannels.net/tx/v1/send", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload)
-    });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-    const detail = await resp.text().catch(() => "");
+      const data = await res.json();
 
-    // If MailChannels fails, pass the detail back to the browser so you can see why
-    if (!resp.ok) {
-      return Response.json(
-        { ok: false, error: "Email send failed", detail },
-        { status: 502, headers: cors() }
-      );
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Send failed");
+      }
+
+      statusEl.textContent = "Message sent successfully.";
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = "Error sending message.";
     }
-
-    return Response.json({ ok: true }, { status: 200, headers: cors() });
-
-  } catch (err) {
-    return Response.json(
-      { ok: false, error: err?.message || "Server error" },
-      { status: 500, headers: cors() }
-    );
-  }
-}
-
-function cors() {
-  return {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
-  };
-}
+  });
+});
