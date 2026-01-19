@@ -257,6 +257,113 @@ footer{
 .contact-form .checkbox-row {
   font-weight: 500;
 }
+/* -----------------------------
+   Sections: Why Us + Pricing
+------------------------------ */
+
+.section{
+  padding: 4rem 0;
+}
+
+.section-alt{
+  background: rgba(0,0,0,.03);
+}
+
+.section h2{
+  margin: 0 0 .75rem 0;
+}
+
+.section-lead{
+  max-width: 70ch;
+  margin: 0 0 2rem 0;
+  opacity: .9;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Simple grids */
+.grid-3{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.grid-2{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+/* Cards */
+.card{
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,.04);
+}
+
+.card h3{
+  margin: 0 0 .5rem 0;
+  font-size: 1.05rem;
+}
+
+.card p{
+  margin: 0;
+  line-height: 1.6;
+  opacity: .92;
+}
+
+.bullets{
+  margin: .75rem 0 0 1.1rem;
+  padding: 0;
+}
+
+.bullets li{
+  margin: .45rem 0;
+  line-height: 1.5;
+}
+
+.steps{
+  margin: .75rem 0 0 1.1rem;
+  padding: 0;
+}
+
+.steps li{
+  margin: .45rem 0;
+  line-height: 1.5;
+}
+
+.note{
+  margin-top: .9rem;
+  opacity: .85;
+}
+
+/* Callout */
+.callout{
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.8);
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .grid-3{ grid-template-columns: 1fr; }
+  .grid-2{ grid-template-columns: 1fr; }
+}
+
+/* Smooth scroll + anchor offset for sticky headers */
+html{
+  scroll-behavior: smooth;
+}
+
+/* If your header is sticky, this prevents the section title from hiding under it */
+#why-us, #pricing, #contact{
+  scroll-margin-top: 90px;
+}
+
 
 
 /* Responsive */
