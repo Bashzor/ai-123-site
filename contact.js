@@ -1,72 +1,51 @@
-document.addEventListener('DOMContentLoaded', function(){
-  console.log("CONTACT.JS v7 LOADED");
-  const form = document.getElementById('contact-form');
-  const statusEl = document.getElementById('form-status');
-  const submitBtn = document.getElementById('submit-btn');
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("contactForm");
+  const statusEl = document.getElementById("contactStatus");
 
-  if(!form) return;
-
-  function setStatus(msg, type){
-    statusEl.textContent = msg;
-    statusEl.className = 'form-status ' + (type || '');
+  if (!form) {
+    console.error("contactForm not found");
+    return;
   }
 
-  function validate(fields){
-    if(!fields.name || fields.name.trim().length < 2) return 'Please enter your full name.';
-    if(!fields.email || !/^\S+@\S+\.\S+$/.test(fields.email)) return 'Please enter a valid email.';
-    if(!fields.message || fields.message.trim().length < 10) return 'Tell us a bit more so we can help.';
-    return null;
-  }
-
-  form.addEventListener('submit', async function(e){
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    setStatus('');
+    e.stopPropagation();
 
-    const data = {
-      name: form.name.value || '',
-      email: form.email.value || '',
-      business: form.business.value || '',
-      message: form.message.value || ''
+    statusEl.textContent = "Sending…";
+
+    const trainingTools = Array.from(
+      document.querySelectorAll('input[name="trainingTools"]:checked')
+    ).map(el => el.value);
+
+    const payload = {
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      company: document.getElementById("company").value.trim(),
+      employees: document.getElementById("employees").value || "",
+      message: document.getElementById("message").value.trim(),
+      trainingTools
     };
 
-    const err = validate(data);
-    if(err){
-      setStatus(err, 'error');
-      return;
-    }
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-    // UI: disable while "sending"
-    submitBtn.disabled = true;
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
-    setStatus('Sending your request…');
+      const data = await res.json();
 
-     try {
-     const res = await fetch('https://ai-123-site.steep-art-b98a.workers.dev/api/contact', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-});
-
-
-      const out = await res.json().catch(() => ({}));
-
-      if (!res.ok || !out.ok) {
-        throw new Error(out.error || out.detail || 'Send failed');
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Send failed");
       }
 
-      setStatus('Thanks! We received your request and will reply within 1 business day.', 'success');
+      statusEl.textContent = "Message sent successfully.";
       form.reset();
-    } catch (err2) {
-      console.error(err2);
-      setStatus('There was an error sending your message. Try again later.', 'error');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = "Error sending message.";
     }
-  
   });
 });
+
 
