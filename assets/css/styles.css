@@ -189,6 +189,24 @@ textarea{ min-height: 120px; resize: vertical; }
 input:focus, textarea:focus{
   border-color: rgba(98,168,255,0.55);
 }
+.checkbox-row{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  margin:.35rem 0;
+}
+
+fieldset.form-row{
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:12px;
+  padding:1rem;
+}
+
+fieldset.form-row legend{
+  padding:0 .5rem;
+  font-weight:600;
+}
+
 
 /* Footer */
 footer{
