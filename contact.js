@@ -1,51 +1,74 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contactForm");
-  const statusEl = document.getElementById("contactStatus");
+export async function onRequestOptions() {
+  return new Response(null, { status: 204, headers: cors() });
+}
 
-  if (!form) {
-    console.error("contactForm not found");
-    return;
-  }
+export async function onRequestPost({ request }) {
+  try {
+    const data = await request.json().catch(() => ({}));
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    const name = (data.name || "").toString().trim();
+    const email = (data.email || "").toString().trim();
+    const company = (data.company || data.business || "").toString().trim();
+    const employees = (data.employees || "").toString().trim();
+    const message = (data.message || "").toString().trim();
 
-    statusEl.textContent = "Sending…";
+    const toolsRaw = Array.isArray(data.trainingTools) ? data.trainingTools : [];
+    const trainingTools = toolsRaw.map(x => (x || "").toString().trim()).filter(Boolean).slice(0, 25);
 
-    const trainingTools = Array.from(
-      document.querySelectorAll('input[name="trainingTools"]:checked')
-    ).map(el => el.value);
+    if (!name || !email || !message) {
+      return Response.json(
+        { ok: false, error: "Missing required fields" },
+        { status: 400, headers: cors() }
+      );
+    }
 
     const payload = {
-      name: document.getElementById("name").value.trim(),
-      email: document.getElementById("email").value.trim(),
-      company: document.getElementById("company").value.trim(),
-      employees: document.getElementById("employees").value || "",
-      message: document.getElementById("message").value.trim(),
-      trainingTools
+      personalizations: [{ to: [{ email: "admin@ai-123.net" }] }],
+      from: { email: "admin@ai-123.net", name: "AI-123 Website" },
+      reply_to: { email, name },
+      subject: `AI-123 Consult Request — ${company || "New lead"}`,
+      content: [{
+        type: "text/plain",
+        value:
+`Name: ${name}
+Email: ${email}
+Company: ${company || "(not provided)"}
+Employees: ${employees || "(not provided)"}
+Training tools: ${trainingTools.length ? trainingTools.join(", ") : "(none selected)"}
+
+Message:
+${message}`
+      }]
     };
 
-    try {
-      const res = await fetch("/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+    const resp = await fetch("https://api.mailchannels.net/tx/v1/send", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload)
+    });
 
-      const data = await res.json();
-
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || "Send failed");
-      }
-
-      statusEl.textContent = "Message sent successfully.";
-      form.reset();
-    } catch (err) {
-      console.error(err);
-      statusEl.textContent = "Error sending message.";
+    const detail = await resp.text().catch(() => "");
+    if (!resp.ok) {
+      return Response.json(
+        { ok: false, error: "Email send failed", detail },
+        { status: 502, headers: cors() }
+      );
     }
-  });
-});
 
+    return Response.json({ ok: true }, { status: 200, headers: cors() });
+  } catch (err) {
+    return Response.json(
+      { ok: false, error: err?.message || "Server error" },
+      { status: 500, headers: cors() }
+    );
+  }
+}
+
+function cors() {
+  return {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type"
+  };
+}
 
