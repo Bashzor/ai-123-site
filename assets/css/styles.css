@@ -363,19 +363,44 @@ html{
 #why-us, #pricing, #contact{
   scroll-margin-top: 90px;
 }
+/* -----------------------------
+   Fix white text in light sections
+------------------------------ */
 
-
-
-/* Responsive */
-@media (max-width: 920px){
-  .hero-inner{
-    grid-template-columns: 1fr;
-  }
-  .hero-media img{
-    height: 260px;
-  }
-  .features{
-    grid-template-columns: 1fr;
-  }
+/* Force text color for these sections */
+#why-us,
+#pricing {
+  color: #1a1a1a;
 }
+
+/* Headings */
+#why-us h2,
+#why-us h3,
+#pricing h2,
+#pricing h3 {
+  color: #111;
+}
+
+/* Paragraphs, lists, notes */
+#why-us p,
+#why-us li,
+#pricing p,
+#pricing li,
+#pricing .note {
+  color: #2b2b2b;
+}
+
+/* Cards specifically */
+#why-us .card,
+#pricing .card {
+  color: #1a1a1a;
+}
+
+/* Callout text */
+#pricing .callout {
+  color: #1a1a1a;
+}
+
+
+
 
