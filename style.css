@@ -2,17 +2,23 @@
 
 /* Variables */
 :root{
-  --bg: #ffffff;
-  --text: #111827;
-  --muted: #6b7280;
+  /* Darkscale theme */
+  --bg: #0b1220;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+
+  /* Brand */
   --primary: #2563eb;
   --primary-600: #1e40af;
+
+  /* Layout */
   --radius: 10px;
   --container-width: 1000px;
   --gap: 1.25rem;
   --max-width: 1100px;
+
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 *{box-sizing:border-box}
@@ -35,8 +41,8 @@ body{
 
 /* Header */
 .site-header{
-  border-bottom:1px solid #e6e7eb;
-  background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  background:linear-gradient(180deg, rgba(11,18,32,0.65), rgba(11,18,32,0.92));
   position:sticky;
   top:0;
   z-index:40;
@@ -87,7 +93,7 @@ body{
   border-radius:8px;
   border:1px solid transparent;
   text-decoration:none;
-  color:var(--primary-600);
+  color:var(--primary);
   background:transparent;
   font-weight:600;
   cursor:pointer;
@@ -99,6 +105,8 @@ body{
 }
 
 .btn.primary{
+  /* IMPORTANT: keep the blue fill */
+  background: var(--primary);
   color: #ffffff !important;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -138,9 +146,9 @@ body{
 .card{
   padding:1rem;
   border-radius:var(--radius);
-  border:1px solid #eef2ff;
-  background:#fff;
-  box-shadow:0 6px 18px rgba(15,23,42,0.02);
+  border:1px solid rgba(255,255,255,0.08);
+  background: rgba(15,23,42,0.55);
+  box-shadow:0 10px 30px rgba(0,0,0,0.35);
 }
 
 /* About & Contact */
@@ -158,11 +166,14 @@ label{
 }
 input[type="text"],
 input[type="email"],
+input[type="number"],
 textarea{
   padding:0.6rem 0.75rem;
   border-radius:8px;
-  border:1px solid #e6e7eb;
+  border:1px solid rgba(255,255,255,0.12);
   font-size:0.95rem;
+  background: rgba(15,23,42,0.7);
+  color: var(--text);
 }
 textarea{
   resize:vertical;
@@ -176,43 +187,4 @@ textarea{
 }
 #form-status{
   color:var(--muted);
-  font-size:0.95rem;
-}
-
-/* Footer */
-.site-footer{
-  padding:1.25rem 0;
-  border-top:1px solid #e6e7eb;
-  margin-top:2rem;
-  color:var(--muted);
-}
-
-/* Responsive tweaks */
-@media (max-width:720px){
-  .header-inner{padding:0.5rem 0}
-  .main-nav ul{gap:0.5rem}
-  .hero{padding:2rem 0}
-  .container{padding:0.9rem}
-}
-/* FORCE the contact form Send button to be visible */
-#contactForm button.btn.primary{
-  background: var(--primary) !important;
-  color: #ffffff !important;
-  border: 2px solid rgba(255,255,255,0.9) !important;
-  border-radius: 10px !important;
-  padding: 0.75rem 1.1rem !important;
-  font-weight: 800 !important;
-
-  box-shadow:
-    0 10px 24px rgba(37,99,235,0.22),
-    0 0 0 3px rgba(255,255,255,0.18) !important;
-}
-
-#contactForm button.btn.primary:hover{
-  background: var(--primary-600) !important;
-  box-shadow:
-    0 12px 30px rgba(37,99,235,0.28),
-    0 0 0 5px rgba(255,255,255,0.28) !important;
-  transform: translateY(-1px);
-}
-
+  fo
