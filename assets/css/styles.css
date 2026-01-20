@@ -77,14 +77,12 @@ body{
 
 /* Hero */
 .hero{
-  background-image: url("/images/background-image.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
+.hero{
+  background-image:
+    linear-gradient(180deg, rgba(11,18,32,0.75), rgba(11,18,32,0.45)),
+    url("/images/background-image.jpg");
 }
+
 
 /* Buttons */
 .btn{
