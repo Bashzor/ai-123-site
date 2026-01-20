@@ -99,8 +99,9 @@ body{
 }
 
 .btn.primary{
-  background:var(--primary);
-  color:#fff;
+  color: #ffffff !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 
   /* White highlight + glow */
   border:2px solid rgba(255,255,255,0.9);
