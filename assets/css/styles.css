@@ -77,7 +77,7 @@ body{
 
 /* Hero */
 .hero{
-  background-image: url("/public/images/background-image.jpg");
+  background-image: url("/images/background-image.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
