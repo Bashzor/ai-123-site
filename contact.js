@@ -36,9 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
       let data = null;
       try { data = JSON.parse(text); } catch {}
 
-      if (!res.ok || !data?.ok) {
-        throw new Error(data?.error || text || `HTTP ${res.status}`);
-      }
+     if (!res.ok || !data?.ok) {
+        const extra = data?.detail ? ` — ${data.detail}` : "";
+      throw new Error((data?.error || text || `HTTP ${res.status}`) + extra);
+        }
+
 
       statusEl.textContent = "Sent! We’ll get back to you soon.";
       form.reset();
