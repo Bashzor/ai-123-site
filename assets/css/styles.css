@@ -147,11 +147,10 @@ a{color:inherit}
 
   background-image:
     linear-gradient(180deg, rgba(11,18,32,0.78), rgba(11,18,32,0.40)),
-    url("/images/background-image.jpg"),
     url("/public/images/background-image.jpg");
-  background-size: cover, cover, cover;
-  background-position: center, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .hero-inner{
