@@ -75,7 +75,7 @@ a{color:inherit}
 }
 
 .brand-logo{
-  height: 36px;        /* adjust 32–44 if you want */
+  height: 56px;        /* desktop size */
   width: auto;
   display: block;
 }
