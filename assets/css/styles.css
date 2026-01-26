@@ -68,6 +68,17 @@ a{color:inherit}
   font-size: 1.15rem;
   color: var(--text);
 }
+.brand{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo{
+  height: 36px;        /* adjust 32–44 if you want */
+  width: auto;
+  display: block;
+}
 
 .nav{
   display:flex;
