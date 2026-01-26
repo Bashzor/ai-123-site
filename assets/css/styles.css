@@ -79,6 +79,11 @@ a{color:inherit}
   width: auto;
   display: block;
 }
+@media (max-width: 768px){
+  .brand-logo{
+    height: 44px;
+  }
+}
 
 .nav{
   display:flex;
