@@ -1,64 +1,136 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI-123 | Make AI as easy as 123</title>
-  <link rel="stylesheet" href="/assets/css/styles.css?v=20" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI for Business — Make AI as easy as 1234</title>
+  <meta name="description" content="Affordable, practical AI tools and support to help businesses save time, improve marketing, and grow revenue." />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=12">
 </head>
 <body>
+  <header class="site-header">
+    <div class="container">
+     <a class="brand" href="/">
+        <img class="brand-logo" src="/public/images/ai-123-logo.png" alt="AI-123" />
+      </a>
 
-<header class="site-header">
-  <div class="container nav">
-    <a href="/" class="brand">
-      <img class="brand-logo" src="/public/images/ai-123-logo.png" alt="AI-123" />
-    </a>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#contact" class="btn primary">Get a Free Consult</a>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="container hero-grid">
-    <div class="hero-text">
-      <h1>AI doesn’t need to be confusing.</h1>
-      <p>
-        AI-123 was built to help businesses understand what AI can actually do —
-        in plain English, without hype or pressure.
-      </p>
-      <a href="#contact" class="btn primary">Get a Free Consult</a>
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact" class="btn primary">Get a Free Consult</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="hero-media">
-      <img src="/public/images/ai-123-logo.png" alt="AI-123" loading="eager" />
-    </div>
-  </div>
-</section>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1>Make AI as easy as 123.</h1>
+          <p class="lead">
+            Practical, human help for small and mid-sized businesses who want to save time,
+            improve marketing, and use AI without the confusion.
+          </p>
 
-<section id="about" class="section">
-  <div class="container">
-    <h2>Why AI-123?</h2>
-    <p>
-      We don’t sell software. We help you understand your options —
-      then decide if and how AI fits into your workflow.
-    </p>
-  </div>
-</section>
+          <ul class="benefits">
+            <li>Plain-English AI guidance (no jargon)</li>
+            <li>Tool recommendations & setup help</li>
+            <li>Prompt + workflow building for your team</li>
+          </ul>
 
-<section id="contact" class="section">
-  <div class="container">
-    <h2>Get in Touch</h2>
-    <form id="contactForm" class="contact-form">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" placeholder="How can AI-123 help you?" required></textarea>
-      <button type="submit" class="btn primary">Send</button>
-      <p id="contactStatus" class="form-status"></p>
-    </form>
-  </div>
-</section>
+          <div class="hero-ctas">
+            <a class="btn primary" href="#contact">Get a Free Consult</a>
+            <a class="btn ghost" href="#pricing">See Pricing</a>
+          </div>
+        </div>
 
+        <div class="hero-media">
+          <!-- FIX: stop pulling the handshake image (AI-123-big.png) -->
+          <img src="/public/images/ai-123-logo.png" alt="AI-123" loading="eager" />
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="container">
+        <h2>What AI-123 helps with</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>AI Tool Selection</h3>
+            <p>Compare ChatGPT, Copilot, Gemini and others — based on your real workflow.</p>
+          </div>
+          <div class="card">
+            <h3>Prompts & Processes</h3>
+            <p>Turn AI into repeatable, reliable processes your team can actually use.</p>
+          </div>
+          <div class="card">
+            <h3>Setup & Support</h3>
+            <p>Implementation help and guardrails so you’re not guessing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="section section-alt">
+      <div class="container">
+        <h2>Simple pricing</h2>
+        <p class="muted">
+          Pick a plan or start with a consult — we’ll recommend the best path based on your needs.
+        </p>
+
+        <div class="pricing">
+          <div class="price-card">
+            <h3>Starter</h3>
+            <p class="price">$99</p>
+            <p class="muted">One-time consult + action plan</p>
+          </div>
+          <div class="price-card featured">
+            <h3>Business</h3>
+            <p class="price">$249/mo</p>
+            <p class="muted">Ongoing help for a team/workflow</p>
+          </div>
+          <div class="price-card">
+            <h3>Custom</h3>
+            <p class="price">Let’s talk</p>
+            <p class="muted">Integrations, training, and larger rollouts</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container contact-grid">
+        <div>
+          <h2>Let’s make a plan</h2>
+          <p class="muted">
+            Tell me what you’re trying to do, and I’ll show you the fastest, simplest way AI can help.
+          </p>
+          <small>© AI-123 — Practical AI for business</small>
+        </div>
+
+        <form id="contactForm" class="contact-form">
+          <label>
+            <span>Name</span>
+            <input name="name" type="text" placeholder="Your name" required />
+          </label>
+
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" placeholder="you@company.com" required />
+          </label>
+
+          <label>
+            <span>What do you need help with?</span>
+            <textarea name="message" rows="5" placeholder="A quick note..." required></textarea>
+          </label>
+
+          <button type="submit" class="btn primary">Send</button>
+          <p id="contactStatus" class="form-status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/js/contact.js"></script>
 </body>
 </html>
